@@ -123,12 +123,12 @@ Class `buffered_channel` supports range-for syntax:
         explicit buffered_channel( std::size_t capacity);
 
 [variablelist
-[[Preconditions:] [`2<=capacity`]]
+[[Preconditions:] [`2<=capacity && 0==(capacity & (capacity-1))`]]
 [[Effects:] [The constructor constructs an object of class `buffered_channel`
 with an internal buffer of size `capacity`.]]
 [[Throws:] [`fiber_error`]]
 [[Error Conditions:] [
-[*invalid_argument]: if `capacity<2`.]]
+[*invalid_argument]: if `0==capacity || 0!=(capacity & (capacity-1))`.]]
 [[Notes:] [A `push()`, `push_wait_for()` or `push_wait_until()` will not block
 until the number of values in the channel becomes equal to `capacity`.
 The channel can hold only `capacity - 1` elements, otherwise it is
